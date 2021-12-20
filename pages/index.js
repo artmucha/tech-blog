@@ -1,21 +1,23 @@
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import { Grid, Container } from '@mui/material';
 
 import BlogLayout from 'layouts/BlogLayout';
+import BlogPostCard from 'components/BlogPostCard';
+
+import POSTS from 'constans/posts';
 
 const Home = () => {
   return (
     <BlogLayout>
-      <Container maxWidth="sm">
-        <Box sx={{ my: 4 }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Home page
-          </Typography>
-        </Box>
+      <Container>
+        <Grid container spacing={3}>
+          {POSTS.map((post, index) => (
+            <BlogPostCard key={post.title} post={post} index={index} />
+          ))}
+        </Grid>
       </Container>
     </BlogLayout>
   );
 };
 
 export default Home;
+

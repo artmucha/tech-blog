@@ -10,13 +10,6 @@ import menu from 'constans/menu';
 
 const DRAWER_WIDTH = 280;
 
-const RootStyle = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('lg')]: {
-    flexShrink: 0,
-    width: DRAWER_WIDTH
-  }
-}));
-
 const Sidebar = ({ isOpenSidebar, onCloseSidebar }) => {
 
   const renderContent = (
@@ -75,17 +68,15 @@ const Sidebar = ({ isOpenSidebar, onCloseSidebar }) => {
   );
 
   return (
-    <RootStyle>
-      <Drawer
-        open={isOpenSidebar}
-        onClose={onCloseSidebar}
-        PaperProps={{
-          sx: { width: DRAWER_WIDTH }
-        }}
-      >
-        {renderContent}
-      </Drawer>
-    </RootStyle>
+    <Drawer
+      open={isOpenSidebar}
+      onClose={onCloseSidebar}
+      PaperProps={{
+        sx: { width: DRAWER_WIDTH }
+      }}
+    >
+      {renderContent}
+    </Drawer>
   );
 };
 

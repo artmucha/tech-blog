@@ -8,7 +8,7 @@ import POSTS from 'constans/posts';
 const Home = () => {
   return (
     <BlogLayout>
-      <Container>
+      <Container maxWidth={false}>
         <Grid container spacing={3}>
           {POSTS.map((post, index) => (
             <BlogPostCard key={post.title} post={post} index={index} />

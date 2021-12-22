@@ -1,10 +1,11 @@
 
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Container, IconButton } from '@mui/material';
 import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
 
 import Searchbar from 'components/Searchbar';
+import { maxWidth } from '@mui/system';
 
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
@@ -19,8 +20,13 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   minHeight: APPBAR_MOBILE,
   [theme.breakpoints.up('lg')]: {
+    position: 'static',
     minHeight: APPBAR_DESKTOP,
-    padding: theme.spacing(0, 5)
+    padding: theme.spacing(0, 3),
+    width: '100%',
+    maxWidth: '1536px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }
 }));
 

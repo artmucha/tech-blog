@@ -35,18 +35,18 @@ const CoverImgStyle = styled('img')({
   position: 'absolute'
 });
 
-const BlogPostCard = ({ post, index }) => {
+const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) => {
   const { cover, title, author, createdAt } = post;
   const latestPostLarge = index === 0;
-  const latestPost = index === 1 || index === 2;
+  latestPost = latestPost.includes(index);
 
   return (
-    <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
+    <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? size[0] : size[1]}>
       <Card sx={{ position: 'relative' }}>
         <CardMediaStyle
           sx={{
             ...((latestPostLarge || latestPost) && {
-              pt: 'calc(100% * 4 / 3)',
+              pt: `calc(100% * ${padding[0]} / ${padding[1]})`,
               '&:after': {
                 top: 0,
                 content: "''",
@@ -59,7 +59,7 @@ const BlogPostCard = ({ post, index }) => {
             ...(latestPostLarge && {
               pt: {
                 xs: 'calc(100% * 4 / 3)',
-                sm: 'calc(100% * 3 / 4.66)'
+                sm: `calc(100% * ${paddingLarge[0]} / ${paddingLarge[1]})`,
               }
             })
           }}
@@ -108,11 +108,18 @@ const BlogPostCard = ({ post, index }) => {
             variant="caption"
             sx={{ color: 'text.disabled', display: 'block' }}
           >
+            {author.name}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="caption"
+            sx={{ color: 'text.disabled', display: 'block' }}
+          >
             {createdAt}
           </Typography>
 
           <TitleStyle
-            to="#"
+            href="#"
             color="inherit"
             variant="subtitle2"
             underline="hover"

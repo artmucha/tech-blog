@@ -3,17 +3,17 @@ import { Grid, Container, Typography } from '@mui/material';
 import BlogLayout from 'layouts/BlogLayout';
 import BlogPostCard from 'components/BlogPostCard';
 
-import POSTS from 'constans/posts';
+import { getAllPosts } from 'lib/api';
 
-const Home = () => {
+const Home = ({ posts: { edges } }) => {
   return (
     <BlogLayout>
       <Container maxWidth={'xl'}>
         <Grid container spacing={3}>
-          {POSTS.slice(0,5).map((post, index) => (
+        { edges.slice(0, 5).map(({node}, index) => (
             <BlogPostCard 
-              key={post.title} 
-              post={post} 
+              key={node.slug} 
+              post={node} 
               index={index} 
               size={[12,3]} 
               padding={[3,4]} 
@@ -28,10 +28,10 @@ const Home = () => {
         <Typography variant="h2" mt={3} mb={2}>Najnowsze</Typography>
 
         <Grid container spacing={3}>
-          {POSTS.slice(5,20).map((post, index) => (
+          {edges.slice(5,20).map(({node}, index) => (
             <BlogPostCard 
-              key={post.title} 
-              post={post} 
+              key={node.slug} 
+              post={node} 
               index={index} 
               size={[6,3]} 
               padding={[4,3]} 
@@ -45,5 +45,11 @@ const Home = () => {
   );
 };
 
-export default Home;
+export async function getStaticProps() {
+  const data = await getAllPosts();
+  return {
+    props: { posts: data }
+  };
+};
 
+export default Home;

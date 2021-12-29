@@ -36,7 +36,8 @@ const CoverImgStyle = styled('img')({
 });
 
 const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) => {
-  const { cover, title, author, createdAt } = post;
+  const { title, excerpt, categories, slug, date,  } = post;
+  const cover = post.featuredImage.node.sourceUrl;
   const latestPostLarge = index === 0;
   latestPost = latestPost.includes(index);
 
@@ -76,7 +77,7 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
               ...((latestPostLarge || latestPost) && { display: 'none' })
             }}
           />
-          <AvatarStyle
+          {/* <AvatarStyle
             alt={author.name}
             src={author.avatarUrl}
             sx={{
@@ -88,7 +89,7 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
                 height: 40
               })
             }}
-          />
+          /> */}
 
           <CoverImgStyle alt={title} src={cover} />
         </CardMediaStyle>
@@ -103,27 +104,27 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
             })
           }}
         >
-          <Typography
+          {/* <Typography
             gutterBottom
             variant="caption"
             sx={{ color: 'text.disabled', display: 'block' }}
           >
             {author.name}
-          </Typography>
+          </Typography> */}
           <Typography
             gutterBottom
             variant="caption"
             sx={{ color: 'text.disabled', display: 'block' }}
           >
-            {createdAt}
+            {/* {createdAt} */}
           </Typography>
 
           <TitleStyle
-            href="#"
             color="inherit"
             variant="subtitle2"
             underline="hover"
             component={NextLink}
+            href={`/${slug}`}
             sx={{
               ...(latestPostLarge && { typography: 'h5', height: 60 }),
               ...((latestPostLarge || latestPost) && {
@@ -133,6 +134,15 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
           >
             {title}
           </TitleStyle>
+          { (!latestPostLarge && !latestPost) && (
+          <Typography
+            gutterBottom
+            variant="subtitle2"
+            sx={{ color: 'text.disabled', display: 'block' }}
+          >
+            {excerpt}
+          </Typography>
+          ) }
         </CardContent>
       </Card>
     </Grid>

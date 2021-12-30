@@ -1,9 +1,8 @@
-import { Link as NextLink } from 'next/link';
-
 import { alpha, styled } from '@mui/material/styles';
 import { Link, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
 
 import SvgIconStyle from 'components/SvgIconStyle';
+import { formDate } from 'utils/helpers';
 
 const CardMediaStyle = styled('div')({
   position: 'relative',
@@ -18,6 +17,16 @@ const TitleStyle = styled(Link)({
   WebkitBoxOrient: 'vertical'
 });
 
+const LeadStyle = styled(Typography)(({ theme }) => ({
+  height: 66,
+  overflow: 'hidden',
+  color: theme.palette.text.disabled, 
+  display: 'block', 
+  WebkitLineClamp: 3,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical'
+}));
+
 const AvatarStyle = styled(Avatar)(({ theme }) => ({
   zIndex: 9,
   width: 32,
@@ -25,6 +34,13 @@ const AvatarStyle = styled(Avatar)(({ theme }) => ({
   position: 'absolute',
   left: theme.spacing(3),
   bottom: theme.spacing(-2)
+}));
+
+const InfoStyle = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  marginTop: theme.spacing(2),
+  color: theme.palette.text.disabled
 }));
 
 const CoverImgStyle = styled('img')({
@@ -36,7 +52,7 @@ const CoverImgStyle = styled('img')({
 });
 
 const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) => {
-  const { title, excerpt, categories, slug, date,  } = post;
+  const { title, excerpt, categories, slug, date, author } = post;
   const cover = post.featuredImage.node.sourceUrl;
   const latestPostLarge = index === 0;
   latestPost = latestPost.includes(index);
@@ -67,7 +83,7 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
         >
           <SvgIconStyle
             color="paper"
-            src="vercel.svg"
+            src="avatar-shape.svg"
             sx={{
               width: 80,
               height: 36,
@@ -77,9 +93,9 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
               ...((latestPostLarge || latestPost) && { display: 'none' })
             }}
           />
-          {/* <AvatarStyle
-            alt={author.name}
-            src={author.avatarUrl}
+          <AvatarStyle
+            alt={author.node.name}
+            src={author.node.avatar.url}
             sx={{
               ...((latestPostLarge || latestPost) && {
                 zIndex: 9,
@@ -89,8 +105,7 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
                 height: 40
               })
             }}
-          /> */}
-
+          />
           <CoverImgStyle alt={title} src={cover} />
         </CardMediaStyle>
 
@@ -104,45 +119,59 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
             })
           }}
         >
-          {/* <Typography
-            gutterBottom
-            variant="caption"
-            sx={{ color: 'text.disabled', display: 'block' }}
-          >
-            {author.name}
-          </Typography> */}
+
           <Typography
             gutterBottom
             variant="caption"
             sx={{ color: 'text.disabled', display: 'block' }}
           >
-            {/* {createdAt} */}
+            { formDate(date) }
           </Typography>
 
-          <TitleStyle
-            color="inherit"
-            variant="subtitle2"
-            underline="hover"
-            component={NextLink}
-            href={`/${slug}`}
-            sx={{
-              ...(latestPostLarge && { typography: 'h5', height: 60 }),
-              ...((latestPostLarge || latestPost) && {
-                color: 'common.white'
-              })
-            }}
-          >
-            {title}
-          </TitleStyle>
+          <Typography variant="h2">
+            <TitleStyle
+              color="inherit"
+              variant="subtitle2"
+              underline="hover"
+              href={`/${slug}`}
+              sx={{
+                ...(latestPostLarge && { typography: 'h4', height: 67 }),
+                ...((latestPostLarge || latestPost) && {
+                  color: 'common.white'
+                })
+              }}
+            >
+              {title}
+            </TitleStyle>
+          </Typography>
+
           { (!latestPostLarge && !latestPost) && (
-          <Typography
+          <LeadStyle
             gutterBottom
             variant="subtitle2"
-            sx={{ color: 'text.disabled', display: 'block' }}
+            component="h3"
+            dangerouslySetInnerHTML={{ __html: excerpt }}
           >
-            {excerpt}
-          </Typography>
+          </LeadStyle>
           ) }
+
+          <InfoStyle>
+            { categories.edges.map(({node}, index) => (
+              <Link 
+                key={index}
+                variant="caption"
+                underline="hover"
+                href={`/kategoria/${node.slug}`}
+                sx={{
+                  ml: index === 0 ? 0 : 1.5,
+                  color: 'grey.500'
+                }}
+              >
+                { node.name }
+              </Link>
+            )) }
+          </InfoStyle>
+          
         </CardContent>
       </Card>
     </Grid>

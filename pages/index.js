@@ -25,7 +25,7 @@ const Home = ({ posts: { edges } }) => {
       </Container>
 
       <Container maxWidth={'xl'}>
-        <Typography variant="h2" mt={3} mb={2}>Najnowsze</Typography>
+        <Typography variant="h2" mt={5} mb={2}>Najnowsze</Typography>
 
         <Grid container spacing={3}>
           {edges.slice(5,20).map(({node}, index) => (

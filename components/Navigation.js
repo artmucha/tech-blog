@@ -1,11 +1,10 @@
 
 import { alpha, styled } from '@mui/material/styles';
-import { AppBar, Toolbar, Container, IconButton } from '@mui/material';
+import { AppBar, Toolbar, IconButton } from '@mui/material';
 import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
 
 import Searchbar from 'components/Searchbar';
-import { maxWidth } from '@mui/system';
 
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;

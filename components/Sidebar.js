@@ -1,10 +1,8 @@
 import { Link as NextLink } from 'next/link';
 
-import { styled } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Drawer, Stack } from '@mui/material';
 
 import NavSection from 'components/NavSection';
-import MHidden from 'components/@material-extends/MHidden';
 
 import menu from 'constans/menu';
 
@@ -44,24 +42,6 @@ const Sidebar = ({ isOpenSidebar, onCloseSidebar }) => {
             bgcolor: 'grey.200'
           }}
         >
-
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography gutterBottom variant="h6">
-              Chcesz więcej?
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Wykup Premium
-            </Typography>
-          </Box>
-
-          <Button
-            fullWidth
-            href="/"
-            target="_blank"
-            variant="contained"
-          >
-            Boom
-          </Button>
         </Stack>
       </Box>
     </Box>

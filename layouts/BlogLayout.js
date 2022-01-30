@@ -26,7 +26,7 @@ const MainStyle = styled('div')(({ theme }) => ({
   }
 }));
 
-const DashboardLayout = ({ children }) => {
+const BlogLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -40,4 +40,4 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default BlogLayout;

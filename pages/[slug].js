@@ -137,7 +137,6 @@ const SinglePage = ({post}) => {
             },
             'h2, h3, h4, p': {
               my: 3,
-              fontFamily:
             },
           }}
         >

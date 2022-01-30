@@ -4,11 +4,9 @@ import { Box, Drawer, Stack } from '@mui/material';
 
 import NavSection from 'components/NavSection';
 
-import menu from 'constans/menu';
-
 const DRAWER_WIDTH = 280;
 
-const Sidebar = ({ isOpenSidebar, onCloseSidebar }) => {
+const Sidebar = ({ menu, isOpenSidebar, onCloseSidebar }) => {
 
   const renderContent = (
     <Box

@@ -26,13 +26,13 @@ const MainStyle = styled('div')(({ theme }) => ({
   }
 }));
 
-const BlogLayout = ({ children }) => {
+const BlogLayout = ({ children, menu }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <RootStyle>
       <Navigation onOpenSidebar={() => setOpen(true)} />
-      <Sidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <Sidebar menu={menu} isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         { children }
       </MainStyle>

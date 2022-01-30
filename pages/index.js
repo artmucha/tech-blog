@@ -3,11 +3,13 @@ import { Grid, Container, Typography } from '@mui/material';
 import BlogLayout from 'layouts/BlogLayout';
 import BlogPostCard from 'components/BlogPostCard';
 
+import menu from 'constans/menu';
+
 import { getAllPosts } from 'lib/api';
 
 const Home = ({ posts: { edges } }) => {
   return (
-    <BlogLayout>
+    <BlogLayout menu={menu} >
       <Container maxWidth={'xl'}>
         <Grid container spacing={3}>
         { edges.slice(0, 5).map(({node}, index) => (

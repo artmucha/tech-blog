@@ -10,7 +10,6 @@ const CardMediaStyle = styled('div')({
 });
 
 const TitleStyle = styled(Link)({
-  height: 44,
   overflow: 'hidden',
   WebkitLineClamp: 2,
   display: '-webkit-box',
@@ -135,7 +134,7 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
               underline="hover"
               href={`/${slug}`}
               sx={{
-                ...(latestPostLarge && { typography: 'h4', height: 67 }),
+                ...(latestPostLarge && { typography: 'h4'}),
                 ...((latestPostLarge || latestPost) && {
                   color: 'common.white'
                 })

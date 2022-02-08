@@ -22,7 +22,15 @@ const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props
       position: 'absolute',
       borderTopLeftRadius: 4,
       borderBottomLeftRadius: 4,
-      backgroundColor: theme.palette.primary.main
+      backgroundColor: theme.palette.primary.main,
+
+      [theme.breakpoints.up('lg')]: {
+        top: 'unset',
+        width: '100%',
+        height: 3,
+        borderBottomLeftRadius: 0,
+        borderTopRightRadius: 4,
+      }
     }
   })
 );
@@ -55,7 +63,10 @@ const NavItem = ({ item, active }) => {
         ...(isActiveRoot && activeRootStyle)
       }}
     >
-      <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
+      { icon && 
+        <ListItemIconStyle>{icon && icon}</ListItemIconStyle> 
+      }
+      
       <ListItemText disableTypography primary={title} />
       {info && info}
     </ListItemStyle>
@@ -65,7 +76,14 @@ const NavItem = ({ item, active }) => {
 const NavSection = ({ navConfig, ...other }) => {
   return (
     <Box {...other}>
-      <List disablePadding>
+      <List 
+        disablePadding
+        sx={{
+          display: {
+            lg: 'flex'
+          },
+        }}
+      >
         {navConfig.map((item) => (
           <NavItem key={item.title} item={item} active={'/'} />
         ))}

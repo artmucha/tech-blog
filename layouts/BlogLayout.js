@@ -19,7 +19,7 @@ const MainStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
   paddingTop: APP_BAR_MOBILE + 24,
   paddingBottom: theme.spacing(10),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     paddingTop: APP_BAR_DESKTOP + 24,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2)
@@ -31,7 +31,7 @@ const BlogLayout = ({ children, menu }) => {
 
   return (
     <RootStyle>
-      <Navigation onOpenSidebar={() => setOpen(true)} />
+        <Navigation menu={menu} onOpenSidebar={() => setOpen(true)} />
       <Sidebar menu={menu} isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         { children }

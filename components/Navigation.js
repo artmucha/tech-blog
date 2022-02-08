@@ -4,7 +4,9 @@ import { AppBar, Toolbar, IconButton } from '@mui/material';
 import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
 
+import MHidden from 'components/@material-extends/MHidden';
 import Searchbar from 'components/Searchbar';
+import NavSection from 'components/NavSection';
 
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
@@ -29,13 +31,18 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   }
 }));
 
-const Navigation = ({ onOpenSidebar }) => {
+const Navigation = ({ onOpenSidebar, menu }) => {
   return (
     <RootStyle>
       <ToolbarStyle>
-        <IconButton onClick={onOpenSidebar} sx={{ mr: 1, color: 'text.primary' }}>
-          <Icon icon={menu2Fill} />
-        </IconButton>
+        <MHidden width="lgUp">
+          <IconButton onClick={onOpenSidebar} sx={{ mr: 1, color: 'text.primary' }}>
+            <Icon icon={menu2Fill} />
+          </IconButton>
+        </MHidden>
+        <MHidden width="lgDown">
+          <NavSection navConfig={menu} />
+        </MHidden>
         <Searchbar />
       </ToolbarStyle>
     </RootStyle>

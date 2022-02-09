@@ -1,7 +1,7 @@
-import { Link as NextLink } from 'next/link';
+import Link from 'next/link';
 
 import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, List, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
+import { Box, List, ListItemText, ListItemButton } from '@mui/material';
 
 const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props} />)(
   ({ theme }) => ({
@@ -12,6 +12,9 @@ const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props
     paddingLeft: theme.spacing(2.5),
     paddingRight: theme.spacing(2.5),
     color: theme.palette.text.secondary,
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    },
     '&:before': {
       top: 0,
       right: 0,
@@ -35,18 +38,10 @@ const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props
   })
 );
 
-const ListItemIconStyle = styled(ListItemIcon)({
-  width: 22,
-  height: 22,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-});
-
 const NavItem = ({ item, active }) => {
   const theme = useTheme();
   const isActiveRoot = active === item.path;
-  const { title, path, icon, info } = item;
+  const { title, path } = item;
 
   const activeRootStyle = {
     color: 'primary.main',
@@ -57,18 +52,13 @@ const NavItem = ({ item, active }) => {
 
   return (
     <ListItemStyle
-      component={NextLink}
-      to={path}
       sx={{
         ...(isActiveRoot && activeRootStyle)
       }}
     >
-      { icon && 
-        <ListItemIconStyle>{icon && icon}</ListItemIconStyle> 
-      }
-      
-      <ListItemText disableTypography primary={title} />
-      {info && info}
+      <Link href={path}>
+        <ListItemText disableTypography primary={title} />
+      </Link>
     </ListItemStyle>
   );
 }

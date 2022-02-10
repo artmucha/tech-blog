@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
   },
-  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 },
 {
   toJSON :{

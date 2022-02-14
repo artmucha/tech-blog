@@ -22,11 +22,7 @@ const PostSchema = new mongoose.Schema({
     name: String, 
     slug: String
   }],
-  tags: [{
-    id: Number, 
-    name: String, 
-    slug: String
-  }],
+  tags: [String],
   author: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User' 
@@ -39,6 +35,10 @@ const PostSchema = new mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
+  slug: {
+    type: String,
+    required: true,
+  }
 },
 {
   timestamps: { 

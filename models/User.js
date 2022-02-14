@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import Password from 'services/password';
 
 const UserSchema = new mongoose.Schema({
+  login: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,

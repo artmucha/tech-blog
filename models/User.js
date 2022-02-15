@@ -20,6 +20,9 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
   },
+  avatar: {
+    type: String,
+  },
   posts: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Post' 

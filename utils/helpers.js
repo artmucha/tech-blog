@@ -15,13 +15,13 @@ export const createFile = (image, name) => {
   const mime = image.split('/')[1].split(';')[0];
   const buffer = Buffer.from(data, 'base64');
 
-  fs.writeFile(`/public/posts/${name}.${mime}`, buffer, 'base64', (err) => {
+  fs.writeFile(`./public/posts/${name}.${mime}`, buffer, 'base64', (err) => {
     if (err) return console.log(err);
   });
 
-  const url = `/${name}.${mime}`;
+  const file = `${name}.${mime}`;
 
-  console.log(url)
+  console.log(file)
 
-  return url;
+  return file;
 }

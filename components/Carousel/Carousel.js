@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Grid, Stack, Box, Radio, Fade } from '@mui/material';
 
 import { CarouselItem } from 'components/Carousel';
 
-const Carousel = ({items, gap}) => {
+const Carousel = ({items}) => {
   const [slide, setSlide] = useState(0);
 
   const handleChange = (e) => {
     setSlide(e.target.value);
   };
+
+  useEffect(() => {
+    const next = (slide + 1) % items.length;
+    const id = setTimeout(() => setSlide(next), 3000);
+    return () => clearTimeout(id);
+  }, [slide]);
 
   return (
     <Grid 
@@ -24,6 +30,7 @@ const Carousel = ({items, gap}) => {
           <Fade 
             key={index} 
             in={slide == index} 
+            timeout={1000}
             sx={{
               position: 'absolute',
               top: 0,
@@ -52,6 +59,7 @@ const Carousel = ({items, gap}) => {
       {
         items.map((button, index) => (
           <Radio
+            size='small'
             key={index}
             checked={slide == index}
             onChange={handleChange}

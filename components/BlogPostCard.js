@@ -50,36 +50,13 @@ const CoverImgStyle = styled('img')({
   position: 'absolute'
 });
 
-const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) => {
-  const { title, excerpt, categories, slug, date, author } = post;
-  const cover = post.featuredImage.node.sourceUrl;
-  const latestPostLarge = index === 0;
-  latestPost = latestPost.includes(index);
+const BlogPostCard = ({ post }) => {
+  const { title, lead, cover, categories, slug, createdAt, author } = post;
 
   return (
-    <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? size[0] : size[1]}>
+    <Grid item xs={12} sm={6} md={3}>
       <Card sx={{ position: 'relative' }}>
-        <CardMediaStyle
-          sx={{
-            ...((latestPostLarge || latestPost) && {
-              pt: `calc(100% * ${padding[0]} / ${padding[1]})`,
-              '&:after': {
-                top: 0,
-                content: "''",
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72)
-              }
-            }),
-            ...(latestPostLarge && {
-              pt: {
-                xs: 'calc(100% * 4 / 3)',
-                sm: `calc(100% * ${paddingLarge[0]} / ${paddingLarge[1]})`,
-              }
-            })
-          }}
-        >
+        <CardMediaStyle>
           <SvgIconStyle
             color="paper"
             src="avatar-shape.svg"
@@ -89,21 +66,11 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
               zIndex: 9,
               bottom: -15,
               position: 'absolute',
-              ...((latestPostLarge || latestPost) && { display: 'none' })
             }}
           />
           <AvatarStyle
-            alt={author.node.name}
-            src={author.node.avatar.url}
-            sx={{
-              ...((latestPostLarge || latestPost) && {
-                zIndex: 9,
-                top: 24,
-                left: 24,
-                width: 40,
-                height: 40
-              })
-            }}
+            alt={author}
+            src={author}
           />
           <CoverImgStyle alt={title} src={cover} />
         </CardMediaStyle>
@@ -111,11 +78,6 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
         <CardContent
           sx={{
             pt: 4,
-            ...((latestPostLarge || latestPost) && {
-              bottom: 0,
-              width: '100%',
-              position: 'absolute'
-            })
           }}
         >
 
@@ -124,7 +86,7 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
             variant="caption"
             sx={{ color: 'text.disabled', display: 'block' }}
           >
-            { formDate(date) }
+            { formDate(createdAt) }
           </Typography>
 
           <Typography variant="h2">
@@ -133,40 +95,32 @@ const BlogPostCard = ({ post, index, padding, paddingLarge, size, latestPost }) 
               variant="subtitle2"
               underline="hover"
               href={`/${slug}`}
-              sx={{
-                ...(latestPostLarge && { typography: 'h4'}),
-                ...((latestPostLarge || latestPost) && {
-                  color: 'common.white'
-                })
-              }}
             >
               {title}
             </TitleStyle>
           </Typography>
 
-          { (!latestPostLarge && !latestPost) && (
           <LeadStyle
             gutterBottom
             variant="subtitle2"
             component="h3"
-            dangerouslySetInnerHTML={{ __html: excerpt }}
+            dangerouslySetInnerHTML={{ __html: lead }}
           >
           </LeadStyle>
-          ) }
 
           <InfoStyle>
-            { categories.edges.map(({node}, index) => (
+            { categories.map((category, index) => (
               <Link 
                 key={index}
                 variant="caption"
                 underline="hover"
-                href={`/kategoria/${node.slug}`}
+                href={`/kategoria/${category.slug}`}
                 sx={{
                   ml: index === 0 ? 0 : 1.5,
                   color: 'grey.500'
                 }}
               >
-                { node.name }
+                { category.name }
               </Link>
             )) }
           </InfoStyle>
